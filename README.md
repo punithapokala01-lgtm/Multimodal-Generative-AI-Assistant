@@ -1,93 +1,140 @@
-# Generative-AI-Digital-Assistant-w-RAG (Agent-Nesh 🤖)
 
-Agent-Nesh is a Retrieval-Augmented Generation (RAG)-based multi-modal AI assistant that leverages advanced AI models to provide intelligent, context-aware responses to various types of input including text, images, code, and voice. This project uses the following models:
 
-- [Meta Llama 3](https://build.nvidia.com/explore/discover#llama3-70b)
-- [Microsoft Phi 3 Vision](https://build.nvidia.com/microsoft/phi-3-vision-128k-instruct)
-- [IBM Granite](https://build.nvidia.com/explore/discover#granite-34b-code-instruct)
-- [OpenAI Whisper](https://openai.com/research/whisper/)
+RAG-Based Multi-Modal Generative AI Assistant
 
-## Features
+### 🌟 What It Is
 
-- **Text Assistance**: Handle general text-based queries.
-- **Code Assistance**: Provide coding assistance and help with code-related queries.
-- **Image Analysis**: Analyze and describe images.
-- **Voice Recognition**: Convert spoken language into text.
+Agent-Nesh is an **AI-powered personal assistant** that can understand and respond to **text, images, code, and voice**.
+Unlike a simple chatbot, it uses **Retrieval-Augmented Generation (RAG)** and multiple specialized AI models to provide **context-aware, multimodal answers**.
 
-## Project Structure
+Think of it like a **supercharged ChatGPT** that can also:
+✅ Read and analyze images
+✅ Help you debug/write code
+✅ Understand spoken voice input
+✅ Provide more factual and grounded responses using retrieval
+
+---
+
+# 🎯 Key Features
+
+1. **Text Assistance** 📝
+
+   * General Q&A, summaries, explanations
+   * Works like ChatGPT but uses **RAG** to fetch external/contextual data
+
+2. **Code Assistance** 💻
+
+   * Debugging help
+   * Code generation (Python, JS, etc.)
+   * UML diagram → code conversion (via `uml_to_code.py` tool)
+
+3. **Image Analysis** 🖼️
+
+   * Upload an image → model analyzes and describes it
+   * Can detect objects, scenes, and context
+
+4. **Voice Recognition** 🎤
+
+   * Converts spoken language to text using **OpenAI Whisper**
+   * Lets you interact by speaking instead of typing
+
+---
+
+# 🧠 AI Models Used
+
+* **Meta Llama 3** → General text generation & reasoning
+* **Microsoft Phi 3 Vision** → Vision + text understanding (images & multimodal input)
+* **IBM Granite** → Advanced NLP tasks and reasoning
+* **OpenAI Whisper** → Speech-to-text for voice input
+
+Each model is wrapped in Python scripts (`llama.py`, `phi_vision.py`, etc.) so the assistant can choose the right tool for the task.
+
+---
+
+# 🏛️ Project Structure (Simplified)
 
 ```
 Generative agent/
-├── models/
-│   ├── llama.py
-│   ├── phi_vision.py
-│   ├── granite.py
-│   └── whisper_asr.py
-├── chains/
-│   ├── language_assistant.py
-│   ├── code_assistant.py
-│   └── vision_assistant.py
-├── utils/
-│   └── image_processor.py
-├── agent/
-│   ├── tools/
-│   │   └── uml_to_code.py
-│   ├── prompt_templates.py
-│   └── llm_agent.py
-└── app.py
+├── models/                # Wrappers for AI models
+├── chains/                # Task-specific chains (text, code, vision)
+├── utils/                 # Utility functions (e.g., image processing)
+├── agent/                 # Core agent logic
+│   ├── tools/             # Tools like UML → code generator
+│   └── llm_agent.py       # The main orchestrator
+└── app.py                 # Streamlit app entry point
 ```
 
-## Getting Started
+🔑 **Flow**:
+User input → Chosen chain (language, code, vision) → Correct model → Response back via Streamlit UI.
 
-### Prerequisites
+---
 
-- Python 3.8 or higher
-- [Streamlit](https://streamlit.io/)
-- Required Python packages listed in `requirements.txt`
+# 🚀 How to Run It
 
-### Installation
+1. **Clone repo**
 
-1. Clone the repository:
-    ```sh
-    git clone [https://github.com/your-username/agent-nesh.git](https://github.com/ganeshnehru/RAG-Multi-Modal-Generative-AI-Agent.git)
-    cd RAG-Multi-Modal-Generative-AI-Agent
-    ```
+   ```bash
+   git clone https://github.com/ganeshnehru/RAG-Multi-Modal-Generative-AI-Agent.git
+   cd RAG-Multi-Modal-Generative-AI-Agent
+   ```
 
-2. Create a virtual environment and activate it:
-    ```sh
-    python3 -m venv venv
-    source venv/bin/activate  # On Windows, use `venv\Scripts\activate`
-    ```
+2. **Create virtual environment**
 
-3. Install the required packages:
-    ```sh
-    pip install -r requirements.txt
-    ```
+   ```bash
+   python3 -m venv venv
+   source venv/bin/activate     # Windows: venv\Scripts\activate
+   ```
 
-4. Set up environment variables:
-    - Create a `.env` file in the root directory.
-    - Add your NVIDIA_API_KEY and OPENAI_API_KEY.
+3. **Install dependencies**
 
-### Running the Application
+   ```bash
+   pip install -r requirements.txt
+   ```
 
-1. Run the Streamlit application:
-    ```sh
-    streamlit run app.py
-    ```
+4. **Set up environment variables** in `.env` file
 
-2. Open your browser and navigate to the provided URL to interact with Agent-Nesh.
+   ```ini
+   NVIDIA_API_KEY=your_nvidia_key
+   OPENAI_API_KEY=your_openai_key
+   ```
 
-## Usage
+5. **Run app**
 
-- **Text Queries**: Type your text queries in the provided input box and get responses from the language model.
-- **Code Assistance**: Enter your coding queries to receive code assistance.
-- **Image Analysis**: Upload images for analysis and description.
-- **Voice Input**: Use the voice input feature to transcribe spoken language into text.
+   ```bash
+   streamlit run app.py
+   ```
 
+6. **Open browser** at `http://localhost:8501` → Interact with Agent-Nesh.
 
-## Acknowledgements
+---
 
-- [NVIDIA NIM](https://www.nvidia.com/en-us/ai/)
-- [OpenAI](https://openai.com/)
-- [Streamlit](https://streamlit.io/)
+# 🛠️ Usage Examples
+
+* **Ask a question** → *“Summarize this article”* → Llama 3 responds.
+* **Coding help** → *“Write a Python function for binary search”* → Code assistant responds.
+* **Upload an image** → *“What’s in this picture?”* → Phi Vision describes it.
+* **Voice input** → Say *“What’s the weather in NYC today?”* → Whisper transcribes → Agent answers.
+
+---
+
+# 🔗 Tech Stack
+
+* **Backend AI** → Llama 3, Phi Vision, Granite, Whisper
+* **Framework** → Streamlit (for UI)
+* **RAG** → Retrieval system for grounding answers
+* **Tools** → Custom (UML → code, image processor)
+
+---
+
+# 🎯 Why It’s Useful
+
+* Combines **multiple AI models** into one assistant
+* Handles **multimodal input** (text, voice, image, code)
+* Easy to run locally (just Python + Streamlit)
+* Extensible → you can add more models/tools
+
+---
+
+👉 In short: **Agent-Nesh is like ChatGPT on steroids — a multi-modal, RAG-powered assistant that can chat, code, analyze images, and understand speech.**
+
 
